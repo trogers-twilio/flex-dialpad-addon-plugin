@@ -42,7 +42,7 @@ class SpeedDialSelect extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Caption>Speed Dial</Caption>
         <StyledSelect
           value={this.state.selectedSpeedDialId}
@@ -58,7 +58,7 @@ class SpeedDialSelect extends React.PureComponent {
             </MenuItem>
           ))}
         </StyledSelect>
-      </div>
+      </React.Fragment>
     )
   }
 }
