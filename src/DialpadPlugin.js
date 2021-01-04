@@ -5,6 +5,7 @@ import reducers, { namespace } from './states';
 import registerCustomActions from './customActions';
 import { loadExternalTransferInterface } from './components/ExternalTransfer';
 import { loadInternalCallInterface } from './components/InternalCall';
+import { loadSpeedDialInterface } from './components/SpeedDial';
 
 const PLUGIN_NAME = 'DialpadPlugin';
 
@@ -17,7 +18,9 @@ export default class DialpadPlugin extends FlexPlugin {
   
     loadExternalTransferInterface.bind(this)(flex, manager)
 
-    loadInternalCallInterface.bind(this)(flex, manager)
+    //loadInternalCallInterface.bind(this)(flex, manager)
+
+    loadSpeedDialInterface.bind(this)(flex, manager);
 
     registerCustomActions(manager);
 
