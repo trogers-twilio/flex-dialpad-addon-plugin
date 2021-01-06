@@ -49,6 +49,7 @@ export const DialerContainer = styled('div')`
   display: flex;
   flex-direction: column;
   height: 100%;
+  margin-bottom: 12px;
   padding: 0 11px;
   width: 276px;
   ${({ disabled, theme }) => disabled && theme.OutboundDialerPanel.Container.disabled};
