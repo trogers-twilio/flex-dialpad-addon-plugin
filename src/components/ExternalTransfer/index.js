@@ -3,30 +3,26 @@ import ParticipantActionsButtons from './ParticipantActionsButtons';
 import ParticipantName from './ParticipantName';
 import ParticipantStatus from './ParticipantStatus';
 import ParticipantStatusContainer from './ParticipantStatusContainer';
-import ConferenceButton from './ConferenceButton';
-import ConferenceDialog from './ConferenceDialog';
 import ConferenceMonitor from './ConferenceMonitor';
+import TransferDialpad from './TransferDialpad';
 
 export const loadExternalTransferInterface = (flex, manager) => {
 
-    var translationStrings = {
+	var translationStrings = {
 		DIALPADExternalTransferHoverOver: "Add Conference Participant",
 		DIALPADExternalTransferPhoneNumberPopupHeader: "Enter phone number to add to the conference",
 		DIALPADExternalTransferPhoneNumberPopupTitle: "Phone Number",
 		DIALPADExternalTransferPhoneNumberPopupCancel: "Cancel",
 		DIALPADExternalTransferPhoneNumberPopupDial: "Dial"
-	  }
+	}
   
 	//add translationStrings into manager.strings, preserving anything thats already there - this allows language to be updated outside of updating this plugin
 	manager.strings = { ...translationStrings, ...manager.strings }
 
-	flex.CallCanvasActions.Content.add(<ConferenceButton
-		key="conference"
-	/>, { sortOrder: 2 });
-
-	flex.CallCanvas.Content.add(<ConferenceDialog
-		key="conference-modal"
-	/>, { sortOrder: 100 });
+	flex.WorkerDirectory.Content.add(
+		<TransferDialpad key='transfer-dialpad' manager={manager} />,
+		{ sortOrder: 999 }
+	);
 
 	// This component doesn't render anything to the UI, it just monitors
 	// conference changes and takes action as necessary

@@ -15,9 +15,9 @@ export default class DialpadPlugin extends FlexPlugin {
 
   init(flex, manager) {
   
-    loadExternalTransferInterface.bind(this)(flex, manager)
+    loadExternalTransferInterface.bind(this)(flex, manager);
 
-    loadInternalCallInterface.bind(this)(flex, manager)
+    loadInternalCallInterface.bind(this)(flex, manager);
 
     registerCustomActions(manager);
 
