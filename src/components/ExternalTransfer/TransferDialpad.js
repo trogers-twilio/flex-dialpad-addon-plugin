@@ -41,28 +41,12 @@ class TransferDialpad extends React.PureComponent {
   }
 
   addConferenceParticipant = async (phoneNumber) => {
-    const to = phoneNumber
-
-    const { manager, task } = this.props;
-    const conference = task && (task.conference || {});
-    const { conferenceSid } = conference;
-
-    const mainConferenceSid = task.attributes.conference ? 
-      task.attributes.conference.sid : conferenceSid;
-
-    let from;
-    if (this.props.phoneNumber) {
-      from = this.props.phoneNumber
-    } else {
-      from = manager?.serviceConfiguration?.outbound_call_flows?.default.caller_id;
-    }
+    const { task } = this.props;
 
     // Adding entered number to the conference
-    console.log(`Adding ${to} to conference`);
-    let participantCallSid;
+    console.log(`Adding ${phoneNumber} to conference`);
     try {
-      participantCallSid = await ConferenceService.addParticipant(mainConferenceSid, from, to);
-      ConferenceService.addConnectingParticipant(mainConferenceSid, participantCallSid, 'unknown');
+      await ConferenceService.addParticipant(task, phoneNumber);
     } catch (error) {
       console.error('Error adding conference participant:', error);
     }

@@ -47,15 +47,28 @@ class ConferenceService {
     });
   }
 
-  addParticipant = (taskSid, from, to) => {
+  addParticipant = (task, to, from) => {
     return new Promise((resolve, reject) => {
+      const conference = task && (task.conference || {});
+      const { conferenceSid } = conference;
+
+      const mainConferenceSid = task.attributes.conference
+        ? task.attributes.conference.sid
+        : conferenceSid;
+
+      const fromNumber = from
+        ? from
+        : this.manager?.serviceConfiguration?.outbound_call_flows?.default?.caller_id;
+
+      console.debug(`from: ${from}, fromNumber: ${fromNumber}`);
 
       request('external-transfer/add-conference-participant', this.manager, {
-        taskSid,
-        from,
+        taskSid: mainConferenceSid,
+        from: fromNumber,
         to
       }).then(response => {
         console.log('Participant added:\r\n  ', response);
+        this.addConnectingParticipant(mainConferenceSid, response.callSid, 'unknown');
         resolve(response.callSid);
       })
       .catch(error => {
